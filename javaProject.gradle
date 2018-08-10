@@ -1,0 +1,44 @@
+apply plugin: 'java'
+apply plugin: "net.ltgt.apt-eclipse"
+apply plugin: "net.ltgt.apt-idea"
+apply plugin: "net.ltgt.apt"
+
+ext {
+    if (project.hasProperty('javaVersion')) {
+        jdkVersion = project['javaVersion']
+    }
+}
+
+compileJava {
+    sourceCompatibility = jdkVersion
+    targetCompatibility = jdkVersion
+}
+
+compileTestJava {
+    sourceCompatibility = jdkVersion
+    targetCompatibility = jdkVersion
+}
+
+configurations {
+    providedRuntime
+    all*.exclude group: "org.springframework.boot", module: "spring-boot-starter-tomcat"
+    all*.exclude module: "slf4j-log4j12"
+
+    dependencies {
+        compile 'org.slf4j:slf4j-api'
+
+        runtime 'org.apache.logging.log4j:log4j-slf4j-impl'
+
+        compileOnly 'org.projectlombok:lombok:latest.release'
+
+        testCompile 'junit:junit'
+        testCompile 'org.assertj:assertj-core'
+
+        testCompileOnly 'org.projectlombok:lombok:latest.release'
+
+    }
+}
+
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+eclipse.classpath.downloadSources = true
