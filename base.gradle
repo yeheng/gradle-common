@@ -1,7 +1,12 @@
-apply plugin: "org.sonarqube"
+allprojects {
+    repositories {
+        mavenCentral()
+        jcenter()
+        maven { url "https://repo.spring.io/milestone" }
+    }
+}
 
-//configuration for all projects
-allprojects { project ->
+subprojects {
 
     apply plugin: 'idea'
     apply plugin: 'eclipse'
@@ -11,10 +16,7 @@ allprojects { project ->
     apply plugin: 'propdeps-idea'
     apply plugin: 'propdeps-eclipse'
     apply plugin: 'io.spring.dependency-management'
-
-    repositories {
-        mavenCentral()
-    }
+    apply plugin: "org.sonarqube"
 
     dependencyManagement {
         imports {
