@@ -27,7 +27,7 @@ configurations {
     dependencies {
         compile 'org.slf4j:slf4j-api'
 
-        runtime 'ch.qos.logback:logvack-classic'
+        runtime 'ch.qos.logback:logback-classic'
 
         compileOnly 'org.projectlombok:lombok:1.18.2'
 
