@@ -14,8 +14,6 @@ buildscript {
     }
 }
 
-apply plugin: "org.sonarqube"
-
 //configuration for all projects
 allprojects { project ->
 
