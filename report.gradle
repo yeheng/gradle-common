@@ -4,17 +4,23 @@ apply plugin: 'pmd'
 apply plugin: 'project-report'
 
 jacocoTestReport {
-	reports {
-		html.enabled = true
-		html.destination "${buildDir}/jacoco/jacocoHtml"
-	}
+    reports {
+        html.enabled = true
+        html.destination "${buildDir}/jacoco/jacocoHtml"
+    }
 }
 
 findbugs {
-	ignoreFailures = true
-	excludeFilter = file("${rootProject.projectDir}/gradle/config/findbugs/excludeFilter.xml")
+    ignoreFailures = true
+    File f = file("../gradle/config/findbugs/excludeFilter.xml")
+    if (!f.exists()) {
+        file('../gradle/config/findbugs/').mkdirs()
+        ant.get(src: 'https://raw.githubusercontent.com/YeHeng/gradle-common/master/gradle/config/findbugs/excludeFilter.xml', dest: '../gradle/config/findbugs/', skipexisting: 'true')
+    }
+
+    excludeFilter = f
 }
-    
+
 findbugsMain {
     reports {
         xml.enabled = false
@@ -30,5 +36,5 @@ findbugsTest {
 }
 
 pmd {
-	ignoreFailures = true
+    ignoreFailures = true
 }
