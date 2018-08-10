@@ -42,3 +42,4 @@ configurations {
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
 eclipse.classpath.downloadSources = true
+compileJava.dependsOn(processResources)
