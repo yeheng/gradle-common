@@ -27,14 +27,14 @@ configurations {
     dependencies {
         compile 'org.slf4j:slf4j-api'
 
-        runtime 'org.apache.logging.log4j:log4j-slf4j-impl'
+        runtime 'ch.qos.logback:logvack-classic'
 
-        compileOnly 'org.projectlombok:lombok:latest.release'
+        compileOnly 'org.projectlombok:lombok:1.18.2'
 
         testCompile 'junit:junit'
         testCompile 'org.assertj:assertj-core'
 
-        testCompileOnly 'org.projectlombok:lombok:latest.release'
+        testCompileOnly 'org.projectlombok:lombok:1.18.2'
 
     }
 }
