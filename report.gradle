@@ -10,7 +10,7 @@ jacoco {
 jacocoTestReport {
     reports {
         html.enabled = true
-        html.destination "${buildDir}/jacoco/jacocoHtml"
+        // html.destination "${buildDir}/jacoco/jacocoHtml"
     }
 }
 
