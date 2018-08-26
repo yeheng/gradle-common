@@ -13,5 +13,6 @@ buildscript {
     }
 }
 
-apply from: 'base.gradle'
-apply from: 'libraries.gradle'
+apply from: './libraries.gradle'
+apply from: './gradle/base.gradle'
+apply from: './gradle/spring-dependencies.gradle'

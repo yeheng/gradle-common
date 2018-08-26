@@ -1,0 +1,7 @@
+dependencies {
+
+    compile "com.google.guava:guava:" + guavaVersion
+    compile 'org.apache.commons:commons-lang3:' + commonsLang3Version
+    compile 'commons-io:commons-io:' + commonIoVersion
+    compile 'org.apache.commons:commons-collections4:' + commonCollections4
+}

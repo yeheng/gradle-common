@@ -18,9 +18,9 @@ jacocoTestReport {
 
 findbugs {
     ignoreFailures = true
-    File f = file("../gradle/config/findbugs/excludeFilter.xml")
+    File f = file("../gradle/findbugs/excludeFilter.xml")
     if (!f.exists()) {
-        file('../gradle/config/findbugs/').mkdirs()
+        file('../gradle/findbugs/').mkdirs()
         ant.get(src: 'https://raw.githubusercontent.com/YeHeng/gradle-common/master/gradle/config/findbugs/excludeFilter.xml', dest: '../gradle/config/findbugs/', skipexisting: 'true')
     }
 

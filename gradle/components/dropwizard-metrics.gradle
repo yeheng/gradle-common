@@ -1,0 +1,8 @@
+dependencies {
+    compile "io.dropwizard.metrics:metrics-core:" + dropwizardMetricsVersion
+    compile "io.dropwizard.metrics:metrics-json:" + dropwizardMetricsVersion
+    compile "io.dropwizard.metrics:metrics-jvm:" + dropwizardMetricsVersion
+    compile "io.dropwizard.metrics:metrics-servlet:" + dropwizardMetricsVersion
+    compile "io.dropwizard.metrics:metrics-servlets:" + dropwizardMetricsVersion
+    compile "com.ryantenney.metrics:metrics-spring:" + metricsSpringVersion
+}

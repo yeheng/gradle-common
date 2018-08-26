@@ -1,0 +1,10 @@
+apply from: '../gradle/javaProject.gradle'
+apply from: '../gradle/report.gradle'
+apply from: "../gradle/maven.gradle"
+apply from: "../gradle/components/utils.gradle"
+
+description = 'I\'m a java project'
+
+dependencies {
+
+}
