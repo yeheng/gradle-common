@@ -1,0 +1,9 @@
+dependencies {
+     // swagger
+    compile('io.springfox:springfox-swagger2:'+swaggerVersion) {
+        exclude module: 'mapstruct'
+    }
+    compile 'io.springfox:springfox-swagger-ui:' + swaggerVersion
+    compile "org.mapstruct:mapstruct-jdk8:" + mapstructVersion
+    annotationProcessor "org.mapstruct:mapstruct-processor:" + mapstructVersion
+}
