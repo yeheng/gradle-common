@@ -1,0 +1,13 @@
+apply plugin: 'distribution'
+
+distributions {
+	distTar.enabled = false
+    main {
+        contents {
+            from { 'src/assemble' }
+            from (project.buildDir.path) {
+              include "libs/*.jar"
+            }
+        }
+    }
+}
