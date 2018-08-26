@@ -21,15 +21,16 @@ compileTestJava {
 
 configurations {
     providedRuntime
-    all*.exclude group: "org.springframework.boot", module: "spring-boot-starter-tomcat"
+    // all*.exclude group: "org.springframework.boot", module: "spring-boot-starter-tomcat"
     all*.exclude module: "slf4j-log4j12"
 
     dependencies {
-        compile 'org.slf4j:slf4j-api'
+        
         compileOnly 'org.projectlombok:lombok:1.18.2'
+        annotationProcessor 'org.projectlombok:lombok:1.18.2'
 
-        testCompile 'junit:junit'
-        testCompile 'org.assertj:assertj-core'
+        testCompile 'junit:junit:4.12'
+        testCompile 'org.assertj:assertj-core:3.9.1'
     }
 }
 
