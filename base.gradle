@@ -33,8 +33,12 @@ subprojects {
         }
     }
     
-    test {
-		jvmArgs=["-Dspring.profiles.active=development"]
-	}
-
 }
+
+
+//find out the java projects
+ext.javaProjects = subprojects.findAll { project -> project.name != 'docs' && project.name != 'manual' && project.name != 'guides'}
+//find out the webapp projects
+ext.webappProjects = subprojects.findAll {project -> project.name.endsWith('webapp')}
+//find out the app projects
+ext.appProjects = subprojects.findAll {project -> project.name.endsWith('app')} - webappProjects
