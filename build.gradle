@@ -24,10 +24,10 @@ ext {
   druidSpringBootStarterVersion='1.1.10'
   logstashLogbackEncoderVersion='5.2'
   organization='YeHeng'
-  mavenSnapshotRepository=http://snapshots.maven.codehaus.org/maven2
-  mavenReleaseRepository=https://maven.codehaus.org/maven2/
-  deploymentUsername=deployer
-  deploymentPassword=deployer
+  mavenSnapshotRepository='http://snapshots.maven.codehaus.org/maven2'
+  mavenReleaseRepository='https://maven.codehaus.org/maven2/'
+  deploymentUsername='deployer'
+  deploymentPassword='deployer'
 }
 
-apply from: './gradle/base.gradle'
+apply from: 'base.gradle'
