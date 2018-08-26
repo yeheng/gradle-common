@@ -1,25 +1,27 @@
-buildscript {
-    repositories {
-        maven { url 'http://repo.spring.io/plugins-release' }
-        maven { url "https://plugins.gradle.org/m2/" }
-    }
-    dependencies {
-        classpath 'io.spring.gradle:propdeps-plugin:0.0.9.RELEASE'
-        classpath "net.ltgt.gradle:gradle-apt-plugin:0.18"
-        classpath "org.springframework.boot:spring-boot-gradle-plugin:2.0.4.RELEASE"
-        classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.6.2"
-        classpath "io.spring.gradle:dependency-management-plugin:1.0.6.RELEASE"
-    }
-}
-
 allprojects {
     repositories {
         maven {url 'http://maven.aliyun.com/nexus/content/groups/public/'}
-        mavenCentral()
         jcenter()
         maven { url "https://repo.spring.io/milestone" }
     }
+    ext.releaseBuild = version.endsWith('RELEASE')
+    ext.snapshotBuild = version.endsWith('SNAPSHOT')
+    
+    configurations.all {
+        resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+        resolutionStrategy.cacheDynamicVersionsFor 0, 'seconds'
+    }
+    
 }
+
+//find out the java projects
+ext.javaProjects = subprojects.findAll { project -> project.name != 'docs' && project.name != 'manual' && project.name != 'guides'}
+//find out the itegrate test projects
+ext.itestProjects = subprojects.findAll { project -> project.name.startsWith('itest') }
+//find out the webapp projects
+ext.webappProjects = subprojects.findAll {project -> project.name.endsWith('webapp')}
+//find out the app projects
+ext.appProjects = subprojects.findAll {project -> project.name.endsWith('app')} - webappProjects
 
 subprojects {
 
@@ -39,6 +41,9 @@ subprojects {
             mavenBom "org.springframework.boot:spring-boot-dependencies:${springBootVersion}"
         }
     }
+    
+    test {
+		jvmArgs=["-Dspring.profiles.active=development"]
+	}
 
 }
-
