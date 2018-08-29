@@ -1,13 +1,32 @@
 apply plugin: 'distribution'
 
 distributions {
-	distTar.enabled = false
-    main {
-        contents {
-            from { 'src/assemble' }
-            from (project.buildDir.path) {
-              include "libs/*.jar"
-            }
+  main {
+    contents {
+      from('src/assemble/') {
+        dirMode = 0755
+        fileMode = 0777
+      }
+      configurations['archives'].artifacts.each {
+        if (it.extension != 'zip' && it.extension != 'tar') {
+          from it.file
         }
+	  }
     }
+  }
+}
+
+distZip {
+	doLast {
+		File old = new File("$destinationDir/$archiveName")
+		ant.unzip(src:old, dest: destinationDir, overwrite: true)
+		old.delete()
+		File folder = new File("$destinationDir/$baseName-$version");
+		ant.zip(destfile: "$destinationDir/$archiveName") {
+		  fileset(dir: folder) {
+		  	include(name:"**/*")
+          }
+		}
+		folder.deleteDir()
+	}
 }

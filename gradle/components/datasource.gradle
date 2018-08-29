@@ -1,0 +1,5 @@
+dependencies {
+    compile "org.springframework.boot:spring-boot-starter-jdbc"
+    compile "com.alibaba:druid-spring-boot-starter:" + druidSpringBootStarterVersion
+    compile "mysql:mysql-connector-java"
+}

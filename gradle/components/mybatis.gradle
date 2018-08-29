@@ -1,5 +1,5 @@
 dependencies {
-	compile "com.alibaba:druid-spring-boot-starter:" + druidSpringBootStarterVersion
+
     compile "org.mybatis:mybatis:" + mybatisVersion
     compile "org.mybatis:mybatis-spring:" + mybatisSpringVersion
 }

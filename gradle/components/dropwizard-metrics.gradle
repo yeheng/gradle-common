@@ -5,5 +5,4 @@ dependencies {
     compile "io.dropwizard.metrics:metrics-servlet:" + dropwizardMetricsVersion
     compile "io.dropwizard.metrics:metrics-servlets:" + dropwizardMetricsVersion
     compile "com.ryantenney.metrics:metrics-spring:" + metricsSpringVersion
-    compile "io.prometheus:simpleclient_dropwizard"
 }
