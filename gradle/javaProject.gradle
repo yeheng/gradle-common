@@ -7,6 +7,40 @@ ext {
     if (project.hasProperty('javaVersion')) {
         jdkVersion = project['javaVersion']
     }
+    
+    required = { List<String> requiredComponents ->
+
+        def profile = System.getProperty("spring.profiles.active")
+        def profiles = []
+        def components = []
+
+        if (profile != null && profile.trim() != '') {
+            profiles = profile.splite(',')
+        }
+
+        new File(project.rootDir, 'gradle/components/').listFiles().each {
+            String name = it.name
+            if (name.endsWith(".gradle")) {
+                components.add(name.replace(".gradle", ''))
+            }
+        }
+
+        if (requiredComponents != null && requiredComponents.size() > 0) {
+            requiredComponents.each {
+                apply from: "$project.rootDir/gradle/components/" + it + ".gradle"
+                components.remove(it)
+            }
+        }
+
+        components.each {
+
+            if (profiles.contains(it) || profiles.contains("all")) {
+                apply from: "$project.rootDir/gradle/components/" + it + ".gradle"
+            }
+
+        }
+
+    }
 }
 
 //find out the java projects
