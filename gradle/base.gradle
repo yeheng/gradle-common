@@ -26,4 +26,3 @@ subprojects {
     apply plugin: "org.sonarqube"
 
 }
-

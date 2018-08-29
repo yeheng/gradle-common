@@ -38,6 +38,8 @@ configurations {
 
         testCompile 'junit:junit:' + junitVersion
         testCompile 'org.assertj:assertj-core:' + assertjVersion
+        testCompileOnly 'org.projectlombok:lombok:' + lombokVersion
+        testAnnotationProcessor 'org.projectlombok:lombok:' + lombokVersion
     }
 }
 

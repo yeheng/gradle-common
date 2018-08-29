@@ -18,4 +18,6 @@ ext {
   commonCollections4='4.2'
   commonsLang3Version='3.8'
   slf4jVersion='1.7.25'
+  comsatVer='0.7'
+  quasarVer='0.7.10'
 }

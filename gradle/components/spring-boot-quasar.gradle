@@ -1,0 +1,19 @@
+apply plugin: 'org.springframework.boot'
+
+configurations {
+    quasar
+    provided
+}
+
+dependencies {
+    compile "co.paralleluniverse:quasar-core:$quasarVer"
+    compile "co.paralleluniverse:comsat-spring-boot:$comsatVer"
+    quasar "co.paralleluniverse:quasar-core:${quasarVer}:jdk8@jar"
+}
+
+bootRun {
+    jvmArgs = [
+            "-javaagent:${configurations.quasar.singleFile}",
+            "-Dco.paralleluniverse.fibers.detectRunawayFibers=false"
+    ]
+}

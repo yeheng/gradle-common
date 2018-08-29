@@ -13,5 +13,5 @@ buildscript {
     }
 }
 
-apply from: 'libraries.gradle'
-apply from: './gradle/base.gradle'
+apply from: '$project.rootDir/libraries.gradle'
+apply from: '$project.rootDir/gradle/base.gradle'
