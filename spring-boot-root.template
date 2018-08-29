@@ -15,3 +15,4 @@ buildscript {
 
 apply from: '$project.rootDir/libraries.gradle'
 apply from: '$project.rootDir/gradle/base.gradle'
+apply from: '$project.rootDir/gradle/spring-dependencies.gradle'
