@@ -1,12 +1,12 @@
+apply from: '$project.rootDir/libraries.gradle'
+apply from: '$project.rootDir/gradle/base.gradle'
 apply from: '$project.rootDir/gradle/javaProject.gradle'
 apply from: '$project.rootDir/gradle/report.gradle'
 apply from: "$project.rootDir/gradle/maven.gradle"
 apply from: "$project.rootDir/gradle/distribution.gradle"
-apply from: "$project.rootDir/gradle/spring-boot.gradle"
-apply from: "$project.rootDir/gradle/components/utils.gradle"
 
 description = 'I\'m a spring boot application project'
 
 dependencies {
-
+  required(['utils', 'springBoot'])
 }
