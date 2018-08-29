@@ -1,5 +1,3 @@
-apply from: '$project.rootDir/libraries.gradle'
-apply from: '$project.rootDir/gradle/base.gradle'
 apply from: '$project.rootDir/gradle/javaProject.gradle'
 apply from: '$project.rootDir/gradle/report.gradle'
 apply from: "$project.rootDir/gradle/maven.gradle"
