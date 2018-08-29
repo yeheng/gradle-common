@@ -14,4 +14,4 @@ buildscript {
 }
 
 apply from: 'libraries.gradle'
-apply from: 'base.gradle'
+apply from: './gradle/base.gradle'
