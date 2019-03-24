@@ -1,0 +1,35 @@
+apply plugin: "distribution"
+
+distributions {
+  main {
+    contents {
+      from("src/assemble/") {
+        dirMode = 0755
+        fileMode = 0777
+      }
+      configurations["archives"].artifacts.each {
+         def file = it.file
+         if (it.extension != "zip" && it.extension != "tar" && !file.name.endsWith("-sources.jar")) {
+           from file
+         }
+      }
+    }
+  }
+}
+
+distZip {
+	doLast {
+		File old = new File("$destinationDir/$archiveName")
+		ant.unzip(src:old, dest: destinationDir, overwrite: true)
+                old.delete()
+		File folder = new File("$destinationDir/$baseName-$version");
+		File newFolder = new File("$destinationDir/$baseName")
+		folder.renameTo(newFolder)
+		ant.zip(destfile: "$destinationDir/$archiveName") {
+		  fileset(dir: newFolder.getParentFile()) {
+		  	exclude(name:"*.tar")
+          }
+		}
+		folder.deleteDir()
+	}
+}

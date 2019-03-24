@@ -1,0 +1,46 @@
+apply plugin: "jacoco"
+apply plugin: "findbugs"
+apply plugin: "pmd"
+apply plugin: "project-report"
+
+jacoco {
+    toolVersion = "0.8.0"
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled = true
+        xml.destination = file("${buildDir}/reports/jacoco/report.xml")
+        html.enabled = false
+        csv.enabled = false
+    }
+}
+
+findbugs {
+    ignoreFailures = true
+    java.io.File f = file(project.rootDir.path + "/gradle/config/findbugs/excludeFilter.xml")
+    if (!f.exists()) {
+        file(project.rootDir.path + "/gradle/config/findbugs/").mkdirs()
+        ant.get(src: "http://zuzuche.com:tantu.com@103.216.103.2/config/gradle-common/config/findbugs/excludeFilter.xml", dest: project.rootDir.path + "/gradle/config/findbugs/", skipexisting: "true")
+    }
+
+    excludeFilter = f
+}
+
+findbugsMain {
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
+}
+
+findbugsTest {
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
+}
+
+pmd {
+    ignoreFailures = true
+}

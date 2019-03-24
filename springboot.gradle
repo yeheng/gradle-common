@@ -1,0 +1,45 @@
+buildscript {
+    repositories {
+        maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
+        maven { url "http://repo.spring.io/plugins-release" }
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
+    }
+}
+
+apply plugin: org.springframework.boot.gradle.plugin.SpringBootPlugin
+apply plugin: "distribution"
+
+artifacts {
+    archives bootJar
+}
+
+bootJar {
+    manifest {
+        attributes("Implementation-Version": version)
+    }
+}
+
+springBoot {
+    buildInfo()
+}
+
+dependencies {
+
+    compile "org.springframework.boot:spring-boot-starter"
+    compile "org.springframework.boot:spring-boot-starter-aop"
+    compile "org.springframework.boot:spring-boot-starter-logging"
+    compile "org.springframework.boot:spring-boot-starter-actuator"
+
+    testCompile "org.springframework.boot:spring-boot-starter-test"
+}
+
+def additionalArgs = System.getenv("ADD_JVM_ARGS")
+if (additionalArgs!=null) {
+	bootRun.jvmArgs += additionalArgs
+}
+
+defaultTasks "clean", "bootRun"
+distZip.dependsOn(bootJar)

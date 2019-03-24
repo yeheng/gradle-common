@@ -1,0 +1,51 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath "com.avast.gradle:gradle-docker-compose-plugin:$dockerComposeGradlePluginVersion"
+    }
+}
+
+apply plugin: com.avast.gradle.dockercompose.DockerComposePlugin
+
+dockerCompose {
+
+    useComposeFiles = ["$project.rootDir/$project.name/src/main/docker/docker-compose.yml"]
+
+    waitForTcpPorts = false
+    captureContainersOutput = false
+
+    stopContainers = true // doesn't call `docker-compose down` - see below the paragraph about reconnecting
+    removeContainers = true
+    removeImages = "Local" // Other accepted values are: "All" and "Local"
+    removeVolumes = true
+    removeOrphans = false // removes containers for services not defined in the Compose file
+
+    String scaleString = System.getProperty("DOCKER_COMPOSE_SCALE") != null ? System.getProperty("DOCKER_COMPOSE_SCALE") != null : null
+    scaleString = System.getenv("DOCKER_COMPOSE_SCALE") != null ? System.getenv("DOCKER_COMPOSE_SCALE") : scaleString
+    if (scaleString != null && scaleString.trim().size() > 0) {
+      for (String c : scaleString.split(",")) {
+        String[] e = c.split("=")
+        if (e.length>1) {
+          composeUp.settings.scale.put(e[0], e[1])
+        }
+      }
+    }
+
+    if (System.getProperty("DOCKER_HOST") != null) {
+        environment.put 'DOCKER_HOST', System.getProperty("DOCKER_HOST")
+    } else if (System.getenv("DOCKER_HOST") != null) {
+        environment.put 'DOCKER_HOST', System.getenv("DOCKER_HOST")
+    }
+
+    // Pass environment variable to 'docker-compose' for substitution in compose file
+    environment.put 'TAG_VERSION', version
+    environment.put 'PROJECT_GROUP', project.group
+    environment.put 'PROJECT_NAME', project.name
+    environment.put 'SPRING_PROFILES_ACTIVE', System.getenv("SPRING_PROFILES_ACTIVE") !=null ? System.getenv("SPRING_PROFILES_ACTIVE") : 'docker'
+    environment.put 'JAVA_OPTS', System.getenv("JAVA_OPTS") != null ? System.getenv("JAVA_OPTS") : "-Xms512m -Xmx512m -XX:NewRatio=1 -XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=512m -XX:+AlwaysPreTouch -XX:CMSInitiatingOccupancyFraction=75 -XX:+UseCMSInitiatingOccupancyOnly -XX:+ExplicitGCInvokesConcurrent -XX:+CMSParallelInitialMarkEnabled -XX:MaxTenuringThreshold=3 -XX:+UnlockDiagnosticVMOptions -XX:ParGCCardsPerStrideChunk=1024 -Xloggc:/data/logs/$project.name/gc.log -XX:-UseBiasedLocking -XX:AutoBoxCacheMax=20000 -Djava.security.egd=file:/dev/./urandom -XX:+PrintCommandLineFlags -XX:-OmitStackTraceInFastThrow -XX:ErrorFile=/data/logs/$project.name/hs_err_%p.log -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8"
+
+}
+
+composeUp.dependsOn composeDown

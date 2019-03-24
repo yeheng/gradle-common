@@ -1,3 +1,0 @@
-dependencies {
-    compile "com.github.ulisesbocchio:jasypt-spring-boot-starter:" + jasyptSpringVersion
-}

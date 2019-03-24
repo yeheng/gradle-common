@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  spring-boot-app:
+    image: docker.easyrentcars.com/$PROJECT_NAME:$TAG_VERSION
+    networks:
+      - app_net
+    environment:
+      - SPRING_PROFILES_ACTIVE=$SPRING_PROFILES_ACTIVE
+      - JAVA_OPTS=$JAVA_OPTS
+    volumes:
+      - /data/logs:/data/logs
+
+networks:
+  app_net:
+    external: true

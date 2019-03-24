@@ -1,5 +1,0 @@
-dependencies {
-
-    compile "org.mybatis:mybatis:" + mybatisVersion
-    compile "org.mybatis:mybatis-spring:" + mybatisSpringVersion
-}

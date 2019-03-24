@@ -1,3 +1,0 @@
-dependencies {
-	compile 'net.logstash.logback:logstash-logback-encoder:' + logstashLogbackEncoderVersion
-}

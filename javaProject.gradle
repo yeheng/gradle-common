@@ -1,0 +1,57 @@
+buildscript {
+    repositories {
+        maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
+        maven { url "http://repo.spring.io/plugins-release" }
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+    dependencies {
+        classpath "net.ltgt.gradle:gradle-apt-plugin:$gradleAptPluginVersion"
+    }
+}
+
+
+apply plugin: "java"
+apply plugin: net.ltgt.gradle.apt.AptEclipsePlugin
+apply plugin: net.ltgt.gradle.apt.AptIdeaPlugin
+apply plugin: net.ltgt.gradle.apt.AptPlugin
+
+ext {
+    
+	if (project.hasProperty("javaVersion")) {
+        jdkVersion = project["javaVersion"]
+    }
+	
+}
+
+compileJava {
+    sourceCompatibility = jdkVersion
+    targetCompatibility = jdkVersion
+}
+
+compileTestJava {
+    sourceCompatibility = jdkVersion
+    targetCompatibility = jdkVersion
+}
+
+configurations {
+    providedRuntime
+    all*.exclude group: "org.springframework.boot", module: "spring-boot-starter-tomcat"
+    all*.exclude module: "slf4j-log4j12"
+
+    dependencies {
+
+        compileOnly "org.projectlombok:lombok:$lombokVersion"
+        annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+
+        testCompileOnly "org.projectlombok:lombok:$lombokVersion"
+        testAnnotationProcessor "org.projectlombok:lombok:$lombokVersion"
+
+        testCompile "junit:junit:$junitVersion"
+        testCompile "org.assertj:assertj-core:$assertjVersion"
+    }
+}
+
+[compileJava, compileTestJava]*.options*.encoding = "UTF-8"
+
+eclipse.classpath.downloadSources = true
+compileJava.dependsOn(processResources)

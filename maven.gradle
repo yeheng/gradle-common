@@ -1,11 +1,11 @@
-apply plugin: 'java'
-apply plugin: 'maven'
+apply plugin: "java"
+apply plugin: "maven"
 
 // Create a source jar for uploading
 task sourceJar(type: Jar) {
-    classifier = 'sources'
+    classifier = "sources"
     from sourceSets.main.allSource
-    include '**/*.java', '**/*.aj'
+    include "**/*.java", "**/*.aj"
 }
 
 install {
@@ -21,10 +21,10 @@ artifacts {
 uploadArchives {
     repositories {
         mavenDeployer {
-            repository(url: mavenReleaseRepository) {  
+            repository(url: ercMavenReleaseRepository) {  
                 authentication(userName: deploymentUsername, password: deploymentPassword) 
             }
-            snapshotRepository(url: mavenSnapshotRepository) {
+            snapshotRepository(url: ercMavenSnapshotRepository) {
                 authentication(userName: deploymentUsername, password: deploymentPassword)
             }
             customizePom(pom, project)
@@ -44,8 +44,8 @@ def customizePom(pom, gradleProject) {
             "$dep.scope:$dep.optional:$dep.groupId:$dep.artifactId"
         }
     }
-    def isWar = gradleProject.hasProperty('war')
-    def isService = gradleProject.name.endsWith('service')
+    def isWar = gradleProject.hasProperty("war")
+    def isService = gradleProject.name.endsWith("service")
     pom.project {
         if(isWar) {
             packaging = "war"
@@ -53,11 +53,11 @@ def customizePom(pom, gradleProject) {
         name = gradleProject.name
         description = gradleProject.description
         organization {
-            name = organization
+            name = "zuzche"
         }
         if(isWar) {
             properties {
-                'm2eclipse.wtp.contextRoot' '/' + project.war.baseName
+                "m2eclipse.wtp.contextRoot" "/" + project.war.baseName
             }
         }
         
@@ -65,8 +65,8 @@ def customizePom(pom, gradleProject) {
 }
 
 task generatePom {
-    group = 'Build'
-    description = 'Generates a Maven pom.xml'
+    group = "Build"
+    description = "Generates a Maven pom.xml"
 
     ext.generatedPomFileName = "pom.xml"
     onlyIf { install.enabled }
