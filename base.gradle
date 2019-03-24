@@ -50,12 +50,12 @@ subprojects {
         jvmArgs = ["-Dspring.profiles.active=test"]
     }
     
-#    sonarqube {
-#        properties {
-#            property "sonar.host.url", ""
-#            property "sonar.login", ""
-#            property "sonar.scm.provider", "git"
-#        }
-#    }
+//    sonarqube {
+//        properties {
+//            property "sonar.host.url", ""
+//            property "sonar.login", ""
+//            property "sonar.scm.provider", "git"
+//        }
+//    }
     
 }
