@@ -14,7 +14,6 @@ buildscript {
 allprojects {
     repositories {
         maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
-        maven { url "http://103.216.103.3:8081/repository/maven-public/" }
         jcenter()
         maven { url "https://repo.spring.io/milestone" }
     }
@@ -51,12 +50,12 @@ subprojects {
         jvmArgs = ["-Dspring.profiles.active=test"]
     }
     
-    sonarqube {
-        properties {
-            property "sonar.host.url", "http://sonar.easyrentcars.com"
-            property "sonar.login", "aede0496afc19c69281a34347b17502f1c56e669"
-            property "sonar.scm.provider", "git"
-        }
-    }
+#    sonarqube {
+#        properties {
+#            property "sonar.host.url", ""
+#            property "sonar.login", ""
+#            property "sonar.scm.provider", "git"
+#        }
+#    }
     
 }

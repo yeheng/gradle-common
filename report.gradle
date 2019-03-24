@@ -21,7 +21,7 @@ findbugs {
     java.io.File f = file(project.rootDir.path + "/gradle/config/findbugs/excludeFilter.xml")
     if (!f.exists()) {
         file(project.rootDir.path + "/gradle/config/findbugs/").mkdirs()
-        ant.get(src: "http://zuzuche.com:tantu.com@103.216.103.2/config/gradle-common/config/findbugs/excludeFilter.xml", dest: project.rootDir.path + "/gradle/config/findbugs/", skipexisting: "true")
+        ant.get(src: "https://raw.githubusercontent.com/YeHeng/gradle-common/master/config/findbugs/excludeFilter.xml", dest: project.rootDir.path + "/gradle/config/findbugs/", skipexisting: "true")
     }
 
     excludeFilter = f

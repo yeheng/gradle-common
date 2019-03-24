@@ -1,2 +1,2 @@
-apply from: "http://103.216.103.2/config/gradle-common/libraries.gradle"
-apply from: "http://103.216.103.2/config/gradle-common/base.gradle"
+apply from: "https://raw.githubusercontent.com/YeHeng/gradle-common/master/libraries.gradle"
+apply from: "https://raw.githubusercontent.com/YeHeng/gradle-common/master/base.gradle"

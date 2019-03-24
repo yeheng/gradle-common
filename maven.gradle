@@ -21,10 +21,10 @@ artifacts {
 uploadArchives {
     repositories {
         mavenDeployer {
-            repository(url: ercMavenReleaseRepository) {  
+            repository(url: mavenReleaseRepository) {  
                 authentication(userName: deploymentUsername, password: deploymentPassword) 
             }
-            snapshotRepository(url: ercMavenSnapshotRepository) {
+            snapshotRepository(url: mavenSnapshotRepository) {
                 authentication(userName: deploymentUsername, password: deploymentPassword)
             }
             customizePom(pom, project)
@@ -53,7 +53,6 @@ def customizePom(pom, gradleProject) {
         name = gradleProject.name
         description = gradleProject.description
         organization {
-            name = "zuzche"
         }
         if(isWar) {
             properties {
