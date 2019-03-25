@@ -12,7 +12,7 @@ ext {
     assertjVersion = "3.9.1"
     guavaVersion = "20.0"
     commonIoVersion = "2.6"
-    commonCollections4 = "4.2"
+    commonCollections4 = "4.3"
     commonsLang3Version = "3.8"
     slf4jVersion = "1.7.25"
     jasyptSpringVersion = "2.1.0"
