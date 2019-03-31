@@ -15,12 +15,9 @@ apply plugin: io.spring.gradle.propdeps.PropDepsPlugin
 apply plugin: io.spring.gradle.propdeps.PropDepsMavenPlugin
 apply plugin: io.spring.gradle.propdeps.PropDepsIdeaPlugin
 apply plugin: io.spring.gradle.propdeps.PropDepsEclipsePlugin
-
-if (gradle.gradleVersion < "5.2") {
-    apply plugin: net.ltgt.gradle.apt.AptEclipsePlugin
-    apply plugin: net.ltgt.gradle.apt.AptIdeaPlugin
-    apply plugin: net.ltgt.gradle.apt.AptPlugin
-}
+apply plugin: net.ltgt.gradle.apt.AptEclipsePlugin
+apply plugin: net.ltgt.gradle.apt.AptIdeaPlugin
+apply plugin: net.ltgt.gradle.apt.AptPlugin
 
 ext {
     if (project.hasProperty("javaVersion")) {
