@@ -1,2 +1,0 @@
-apply from: "https://raw.githubusercontent.com/YeHeng/gradle-common/master/libraries.gradle"
-apply from: "https://raw.githubusercontent.com/YeHeng/gradle-common/master/base.gradle"

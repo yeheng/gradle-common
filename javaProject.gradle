@@ -1,26 +1,33 @@
 buildscript {
     repositories {
-        maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
         maven { url "http://repo.spring.io/plugins-release" }
         maven { url "https://plugins.gradle.org/m2/" }
+        maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
     }
     dependencies {
-        classpath "net.ltgt.gradle:gradle-apt-plugin:$gradleAptPluginVersion"
+        classpath(gradlePlugins.apt)
+        classpath(gradlePlugins.propdeps)
     }
 }
 
-
 apply plugin: "java"
-apply plugin: net.ltgt.gradle.apt.AptEclipsePlugin
-apply plugin: net.ltgt.gradle.apt.AptIdeaPlugin
-apply plugin: net.ltgt.gradle.apt.AptPlugin
+apply plugin: io.spring.gradle.propdeps.PropDepsPlugin
+apply plugin: io.spring.gradle.propdeps.PropDepsMavenPlugin
+apply plugin: io.spring.gradle.propdeps.PropDepsIdeaPlugin
+apply plugin: io.spring.gradle.propdeps.PropDepsEclipsePlugin
+
+if (gradle.gradleVersion < "5.2") {
+    apply plugin: net.ltgt.gradle.apt.AptEclipsePlugin
+    apply plugin: net.ltgt.gradle.apt.AptIdeaPlugin
+    apply plugin: net.ltgt.gradle.apt.AptPlugin
+}
 
 ext {
-    
-	if (project.hasProperty("javaVersion")) {
+    if (project.hasProperty("javaVersion")) {
         jdkVersion = project["javaVersion"]
+    } else {
+        jdkVersion = '1.8'
     }
-	
 }
 
 compileJava {
@@ -34,21 +41,24 @@ compileTestJava {
 }
 
 configurations {
+
     providedRuntime
     all*.exclude group: "org.springframework.boot", module: "spring-boot-starter-tomcat"
     all*.exclude module: "slf4j-log4j12"
 
     dependencies {
 
-        compileOnly "org.projectlombok:lombok:$lombokVersion"
-        annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+        compileOnly(libraries.lombok)
+        annotationProcessor(libraries.lombok)
 
-        testCompileOnly "org.projectlombok:lombok:$lombokVersion"
-        testAnnotationProcessor "org.projectlombok:lombok:$lombokVersion"
+        testCompileOnly(libraries.lombok)
+        testAnnotationProcessor(libraries.lombok)
 
-        testCompile "junit:junit:$junitVersion"
-        testCompile "org.assertj:assertj-core:$assertjVersion"
+        testCompile(libraries.junit)
+        testCompile(libraries.mockito)
+        testCompile(libraries.assertj)
     }
+
 }
 
 [compileJava, compileTestJava]*.options*.encoding = "UTF-8"

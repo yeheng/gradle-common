@@ -1,0 +1,32 @@
+buildscript {
+    repositories {
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+    dependencies {
+        classpath(gradlePlugins.jibVersion)
+    }
+}
+
+apply plugin: com.google.cloud.tools.jib.gradle.JibPlugin
+
+jib {
+    from {
+        image = "openjdk:8-jdk"
+    }
+    to {
+        image = "$project.name"
+        tags = ["$project.version".toString()]
+        /*auth {
+            username = ""
+            password = ""
+        }*/
+    }
+    container {
+        appRoot = "/app"
+        labels = [maintainer: ""]
+        entrypoint = ["sh", "-c", "java \$JAVA_OPTS -jar /app/${project.getName()}-${version}".toString()]
+    }
+    allowInsecureRegistries = true
+}
+
+tasks.jib.dependsOn tasks.build
