@@ -27,6 +27,7 @@ ext {
     fastjsonVersion = "1.2.49"
     ahcVersion = "2.6.0"
     aspectjVersion = "1.9.1"
+    commonsTextVersion = "1.6"
     
     // unit test
     junitVersion = "4.12"
