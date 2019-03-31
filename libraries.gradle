@@ -19,7 +19,7 @@ ext {
     commonCollections4 = "4.2"
     commonsLang3Version = "3.8"
     okHttpVersion = "3.12.0"
-    prbolemVersion = "0.22.0"
+    prbolemVersion = "0.24.0-RC.0"
     resilience4jVersion = "0.13.2"
     caffeineVersion = "2.6.2"
     mapstructVersion = "1.2.0.Final"
@@ -80,6 +80,7 @@ ext {
         logstashLogbackEncoder:     "net.logstash.logback:logstash-logback-encoder:$logstashLogbackEncoderVersion",
         swagger2:                   "io.springfox:springfox-swagger2:$swaggerVersion",
         swaggerBootstrap:           "com.github.xiaoymin:swagger-bootstrap-ui:$swaggerBootstrapUiVersion",
+        problemSpringWeb:           "org.zalando:problem-spring-web:$prbolemVersion",
     
         junit:                      "junit:junit:$junitVersion",
         mockito:                    "org.mockito:mockito-core:$mockitoVersion",
