@@ -1,40 +1,35 @@
-buildscript {
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.3.1'
+	id 'io.spring.dependency-management' version '1.1.5'
+}
+
+allprojects {
+
+    apply plugin: "idea"
+
     repositories {
-        maven { url "https://repo.spring.io/plugins-release" }
-        maven { url "https://plugins.gradle.org/m2/" }
+        mavenCentral()
+        jcenter()
         maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
+        maven { url "https://repo.spring.io/releases" }
+        maven { url "https://repo.spring.io/milestone" }
     }
-    dependencies {
-        classpath(gradlePlugins.apt)
-        classpath(gradlePlugins.propdeps)
+    
+    ext.releaseBuild = version.endsWith("RELEASE")
+    ext.snapshotBuild = version.endsWith("SNAPSHOT")
+
+    configurations.all {
+        resolutionStrategy.cacheChangingModulesFor 0, "seconds"
+        resolutionStrategy.cacheDynamicVersionsFor 0, "seconds"
     }
+
 }
 
-apply plugin: "java"
-apply plugin: io.spring.gradle.propdeps.PropDepsPlugin
-apply plugin: io.spring.gradle.propdeps.PropDepsMavenPlugin
-apply plugin: io.spring.gradle.propdeps.PropDepsIdeaPlugin
-apply plugin: io.spring.gradle.propdeps.PropDepsEclipsePlugin
-apply plugin: net.ltgt.gradle.apt.AptEclipsePlugin
-apply plugin: net.ltgt.gradle.apt.AptIdeaPlugin
-apply plugin: net.ltgt.gradle.apt.AptPlugin
-
-ext {
-    if (project.hasProperty("javaVersion")) {
-        jdkVersion = project["javaVersion"]
-    } else {
-        jdkVersion = '1.8'
-    }
-}
-
-compileJava {
-    sourceCompatibility = jdkVersion
-    targetCompatibility = jdkVersion
-}
-
-compileTestJava {
-    sourceCompatibility = jdkVersion
-    targetCompatibility = jdkVersion
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
 }
 
 configurations {
@@ -45,20 +40,16 @@ configurations {
 
     dependencies {
 
-        compileOnly(libraries.lombok)
-        annotationProcessor(libraries.lombok)
+        implementation 'org.springframework.boot:spring-boot-starter'
+        compileOnly 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+        testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
-        testCompileOnly(libraries.lombok)
-        testAnnotationProcessor(libraries.lombok)
-
-        testCompile(libraries.junit)
-        testCompile(libraries.mockito)
-        testCompile(libraries.assertj)
     }
 
 }
 
 [compileJava, compileTestJava]*.options*.encoding = "UTF-8"
 
-eclipse.classpath.downloadSources = true
 compileJava.dependsOn(processResources)

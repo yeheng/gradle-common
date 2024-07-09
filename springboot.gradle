@@ -1,16 +1,8 @@
-buildscript {
-    repositories {
-        maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
-        maven { url "http://repo.spring.io/plugins-release" }
-        maven { url "https://plugins.gradle.org/m2/" }
-    }
-    dependencies {
-        classpath (gradlePlugins.springBoot)
-    }
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.3.1'
+	id 'io.spring.dependency-management' version '1.1.5'
 }
-
-apply plugin: org.springframework.boot.gradle.plugin.SpringBootPlugin
-apply plugin: "distribution"
 
 artifacts {
     archives bootJar
